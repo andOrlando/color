@@ -190,8 +190,8 @@ function color(args)
 
 			-- Set what values are currently accessible
 			if string.match("rgb", key) then obj._access = "rgb"
-			elseif string.match("hex", key) then obj._access = "hex"
 			elseif string.match("hsl", key) then obj._access = "hsl"
+			elseif string.match("hex", key) then obj._access = "hex"
 			end
 
 		-- If it's not part of _props just normally set it
