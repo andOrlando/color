@@ -18,6 +18,21 @@ manner, however. Should you, in the example of the code snippet, update h, s or 
 other values. Only when you access non-hsl entries will it update them. Once it's updated, you can access anything 
 without it updating further until you change something again.
 
+# What's the point though?
+you can do cool stuff like this!
+
+![Spinny Volume Thing](./images/spinny.gif)
+
+I do this by keeping track of two colors, one for the background and one for
+the foreground. Whenever I go forwards a color, I increment the hue by 40 for
+both, and whenever I go backwards I do the opposite. The two colors are exactly
+40 hues away. Then, to actually change the color of the arcchart I just use the
+hex parameter (`"#"..color.hex`). The actual animation/easing is done with my
+other overengineered ricing project, [rubato](https://github.com/andOrlando/rubato). 
+While you can only see the colors if your volume is at like 36,000% (the grey
+is 1-100%, the color changing one is 101-200%), it was a little annoying to have
+it not be smooth should I ever want to blow out my speakers.
+
 # Useful functions and more info
 Furthermore, it comes with a couple nice functions too:
 - `hex_to_rgb`: takes in a string hex value (no # as of now) and returns rgb values from 0-255
@@ -41,5 +56,5 @@ I just do what I think looks pleasent, which I suppose is fitting for a ricer.
 - [ ] Add better checks (asserts and stuff)
 - [ ] Add alpha and toggles for whether or not to include it
 - [ ] Do better setting of default methods (`obj._props.r = args.r or 0` kinda thing)
-- [ ] Make do good readme
+- [X] Make do good readme
 - [ ] Have smarter input reading (as in, don't require a table with r, g and b, look at first three indices)

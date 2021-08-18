@@ -31,7 +31,7 @@ function rgb_to_hsl(obj)
 	-- Get luminance
 	l = (max + min) / 2
 
-	-- short circuit saturation and hue if it's grey
+	-- short circuit saturation and hue if it's grey to prevent divide by 0
 	if max == min then
 		s = 0
 		h = obj.h or 0
