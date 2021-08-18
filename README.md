@@ -20,15 +20,15 @@ without it updating further until you change something again.
 
 # Useful functions and more info
 Furthermore, it comes with a couple nice functions too:
-<li/> `hex_to_rgb`: takes in a string hex value (no # as of now) and returns rgb values from 0-255
-<li/> `rgb_to_hex`: takes in a table with entries r, g and b and returns a string hex value (with no #)
-<li/> `rgb_to_hsl`: takes in a table with entries r, g and b and returns a table with h, s and l
-<li/> `hsl_to_rgb`: takes in a table with entries h, s and l and returns a table with r, g and b
+- `hex_to_rgb`: takes in a string hex value (no # as of now) and returns rgb values from 0-255
+- `rgb_to_hex`: takes in a table with entries r, g and b and returns a string hex value (with no #)
+- `rgb_to_hsl`: takes in a table with entries r, g and b and returns a table with h, s and l
+- `hsl_to_rgb`: takes in a table with entries h, s and l and returns a table with r, g and b
 
 A couple more notes about the color class:
-<li/> r, g and b must be values between 0 and 255
-<li/> s and l must be between 0 and 1, whereas h must be between 0 and 360
-<li/> hex (as of now) must not contain its #, but I'm probably gonna add support for that in the future
+- r, g and b must be values between 0 and 255
+- s and l must be between 0 and 1, whereas h must be between 0 and 360
+- hex (as of now) must not contain its #, but I'm probably gonna add support for that in the future
 
 All the math was taken from [here](https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/). 
 I basically just put it into lua in a nice way. Me actaully kinda learning how to make this nice api comes
