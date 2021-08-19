@@ -1,5 +1,6 @@
 -- much help from https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 -- basically a lua implementation of the above link
+local naughty = require 'naughty'
 
 -- Helper "round" method
 local function round(x, p) 
@@ -9,6 +10,7 @@ end
 
 -- Useful public methods
 function hex_to_rgb(hex)
+	hex = hex:gsub("#", "")
 	return
 		tonumber("0x"..hex:sub(1,2)),
 		tonumber("0x"..hex:sub(3,4)),
@@ -16,15 +18,23 @@ function hex_to_rgb(hex)
 end
 
 function rgb_to_hex(obj)
-	return string.format("%02x%02x%02x", 
-			math.floor(obj.r), 
-			math.floor(obj.g), 
-			math.floor(obj.b))
+	local r = obj.r or obj[1]
+	local g = obj.g or obj[2] 
+	local b = obj.b or obj[3]
+	local h = (obj.hashtag or obj[4]) and "#" or ""
+	return h..string.format("%02x%02x%02x", 
+			math.floor(r), 
+			math.floor(g), 
+			math.floor(b))
 end
 
---disclaimer I have no idea what any of this does
+--disclaimer I have no idea what any of the math does
 function rgb_to_hsl(obj)
-	local R, G, B = obj.r / 255, obj.g / 255, obj.b / 255
+	local r = obj.r or obj[1]
+	local g = obj.g or obj[2] 
+	local b = obj.b or obj[3]
+
+	local R, G, B = r / 255, g / 255, b / 255
 	local max, min = math.max(R, G, B), math.min(R, G, B)
 	local l, s, h
 
@@ -34,7 +44,7 @@ function rgb_to_hsl(obj)
 	-- short circuit saturation and hue if it's grey to prevent divide by 0
 	if max == min then
 		s = 0
-		h = obj.h or 0
+		h = obj.h or obj[4] or 0
 		return
 	end
 
@@ -57,16 +67,20 @@ end
 
 --no clue about any of this either
 function hsl_to_rgb(obj)
+	local h = obj.h or obj[1]
+	local s = obj.s or obj[2]
+	local l = obj.l or obj[3]
+
 	local temp1, temp2, temp_r, temp_g, temp_b, temp_h
 	
 	-- Set the temp variables
-	if obj.l <= 0.5 then temp1 = obj.l * (obj.s + 1)
-	else temp1 = obj.l + obj.s - obj.l * obj.s
+	if l <= 0.5 then temp1 = l * (s + 1)
+	else temp1 = l + s - l * s
 	end
 	
-	temp2 = obj.l * 2 - temp1
+	temp2 = l * 2 - temp1
 
-	temp_h = obj.h / 360
+	temp_h = h / 360
 
 	temp_r = temp_h + 1/3
 	temp_g = temp_h
@@ -112,26 +126,27 @@ function color(args)
 	args.hex = args.hex or "000000"
 	args.hex = args.hex:gsub("#", "")
 	obj._props = args
-	obj._access = "rgbhexhsl"
+
+	-- Default actual normal properties
+	obj.hashtag = args.hashtag or true
+	obj.disable_hsl = args.disable_hsl or false
 	
+	-- Set access to any
+	obj._access = "rgbhslhex"
 
 	-- Methods and stuff
 	function obj:_hex_to_rgb()
 		obj._props.r, obj._props.g, obj._props.b = hex_to_rgb(obj._props.hex)
 	end
-
 	function obj:_rgb_to_hex()
 		obj._props.hex = rgb_to_hex(obj._props)
 	end
-
 	function obj:_rgb_to_hsl()
 		obj._props.h, obj._props.s, obj._props.l = rgb_to_hsl(obj._props)
 	end
-
 	function obj:_hsl_to_rgb()
 		obj._props.r, obj._props.g, obj._props.b = hsl_to_rgb(obj._props)
 	end
-
 	function obj:set_no_update(key, value)
 		obj._props[key] = value
 	end
@@ -139,11 +154,11 @@ function color(args)
 	-- Initially set other values
 	if obj._props.r ~= 0 or obj._props.g ~= 0 or obj._props.b ~= 0 then
 		obj:_rgb_to_hex() 
-		obj:_rgb_to_hsl()
+		if not obj.disable_hsl then obj:_rgb_to_hsl() end
 	
 	elseif obj._props.hex ~= "000000" then
 		obj:_hex_to_rgb() 
-		obj:_rgb_to_hsl()
+		if not obj.disable_hsl then obj:_rgb_to_hsl() end
 
 	elseif obj._props.h ~= 0 or obj._props.s ~= 0 or obj._props.l ~= 0 then
 		obj:_hsl_to_rgb()
@@ -159,23 +174,30 @@ function color(args)
 	-- TODO: Only remake values if necessary
 	mt.__index = function(self, key)
 		if self._props[key] then 
+			-- Check if to just return nil for hsl
+			if obj.disable_hsl and string.match("hsl", key) then return self._props[key] end
+			
+			-- Check if it's not currently accessible
 			if not string.match(obj._access, key) then
 				if obj._access == "rgb" then
 					self:_rgb_to_hex() 
-					self:_rgb_to_hsl()
+					if not obj.disable_hsl then obj:_rgb_to_hsl() end
 
 				elseif obj._access == "hex" then
 					self:_rgb_to_hex() 
-					self:_rgb_to_hsl()
+					if not obj.disable_hsl then obj:_rgb_to_hsl() end
 
 				elseif obj._access == "hsl" then
 					self:_hsl_to_rgb()
 					self:_rgb_to_hex()
-
 				end
 
+				-- Reset accessibleness
 				obj._access = "rgbhexhsl"
 			end
+
+			-- Check for hashtaginess
+			if obj.hashtag and key == "hex" then return "#"..self._props[key] end
 
 			return self._props[key]
 
@@ -190,7 +212,7 @@ function color(args)
 
 			-- Set what values are currently accessible
 			if string.match("rgb", key) then obj._access = "rgb"
-			elseif string.match("hsl", key) then obj._access = "hsl"
+			elseif string.match("hsl", key) and not obj.disable_hsl then obj._access = "hsl"
 			elseif string.match("hex", key) then obj._access = "hex"
 			end
 
