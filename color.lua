@@ -1,6 +1,5 @@
 -- much help from https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 -- basically a lua implementation of the above link
-local naughty = require 'naughty'
 
 -- Helper "round" method
 local function round(x, p) 
