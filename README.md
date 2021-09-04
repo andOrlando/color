@@ -56,7 +56,7 @@ I just do what I think looks pleasent, which I suppose is fitting for a ricer.
 - [ ] cool name??
 - [X] Add better # support for hex
 - [ ] Add better checks (asserts and stuff)
-- [ ] Add alpha and toggles for whether or not to include it
+- [X] Add alpha and toggles for whether or not to include it
 - [ ] Do better setting of default methods (`obj._props.r = args.r or 0` kinda thing)
 - [X] Make do good readme
 - [X] Have smarter input reading (as in, don't require a table with r, g and b, look at first three indices)
