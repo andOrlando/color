@@ -39,6 +39,7 @@ Furthermore, it comes with a couple nice functions too:
 - `color.utils.rgb_to_hex`: takes in a table with entries r, g and b (or just as the first three entires) and returns a string hex value (with no #)
 - `color.utils.rgb_to_hsl`: takes in a table with entries r, g and b (or just as the first three entires) and returns a table with h, s and l
 - `color.utils.hsl_to_rgb`: takes in a table with entries h, s and l (or just as the first three entires) and returns a table with r, g and b
+- `color.transition`: takes two color objects and a method (constants defined in transition) and returns a function that transitions between the two colors. 0 would be color 1, 1 would be color 2, everything else is a color in between. For best results you probably want to use the HSL mode,
 
 A couple more notes about the color class:
 - r, g and b must be values between 0 and 255
