@@ -35,10 +35,10 @@ it not be smooth should I ever want to blow out my speakers.
 
 # Useful functions and more info
 Furthermore, it comes with a couple nice functions too:
-- `hex_to_rgba`: takes in a string hex value (no # as of now) and returns rgb values from 0-255 and a from 0 to 1
-- `rgba_to_hex`: takes in a table with entries r, g and b (and optionally a) (or just as the first 3-4 entires) and returns a string hex value (with no #)
-- `rgb_to_hsl`: takes in a table with entries r, g and b (or just as the first three entires) and returns a table with h, s and l
-- `hsl_to_rgb`: takes in a table with entries h, s and l (or just as the first three entires) and returns a table with r, g and b
+- `color.utils.hex_to_rgb`: takes in a string hex value (no # as of now) and returns rgb values from 0-255
+- `color.utils.rgb_to_hex`: takes in a table with entries r, g and b (or just as the first three entires) and returns a string hex value (with no #)
+- `color.utils.rgb_to_hsl`: takes in a table with entries r, g and b (or just as the first three entires) and returns a table with h, s and l
+- `color.utils.hsl_to_rgb`: takes in a table with entries h, s and l (or just as the first three entires) and returns a table with r, g and b
 
 A couple more notes about the color class:
 - r, g and b must be values between 0 and 255
@@ -53,7 +53,7 @@ from [here](https://ebens.me/post/implementing-proper-gettersetters-in-lua). Ple
 I just do what I think looks pleasent, which I suppose is fitting for a ricer.
 
 # TODO
-- [ ] cool name??
+- [ ] cool name?? (I do have color on luarocks, which is a pretty good name, but idk)
 - [X] Add better # support for hex
 - [ ] Add better checks (asserts and stuff)
 - [X] Add alpha and toggles for whether or not to include it
