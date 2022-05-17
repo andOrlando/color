@@ -49,7 +49,7 @@ local function rgb_to_hsl(obj)
 	if max == min then
 		s = 0
 		h = obj.h or obj[4] or 0
-		return
+		return 0, 0, l
 	end
 
 	-- Get saturation

@@ -39,7 +39,7 @@ local function color(args)
 	-- Methods and stuff
 	function obj:_hex_to_rgba()
 		obj._props.r, obj._props.g, obj._props.b, alpha = utils.hex_to_rgba(obj._props.hex)
-		if not alpha then self._props.a = alpha end
+		if alpha then self._props.a = alpha end
 		if obj._props.small_rgb then
 			obj._props.r = math.floor(obj._props.r / 255)
 			obj._props.g = math.floor(obj._props.g / 255)
