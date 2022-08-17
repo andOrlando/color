@@ -12,6 +12,15 @@ dark_green.h, dark_green.s, dark_green.l
 dark_green.h = 60
 dark_green.r, dark_green.g, dark_green.b
 -- Returns 30.0 30.0 10.0
+
+newcolor = dark_green + "60h"
+newcolor.h, newcolor.s, newcolor.l
+-- Returns 120.0 0.5 0.07843137254902
+-- creates a new color with the desired change (+60 hue)
+
+dark_green.h, dark_green.s, dark_green.l
+-- Returns 60.0 0.5 0.07843137254902
+-- doesn't modify the old color
 ```
 As you can see, when you update one variable all the rest update with it. This is done in a relatively intelligent 
 manner, however. Should you, in the example of the code snippet, update h, s or l again, it won't try to update the 
@@ -47,6 +56,7 @@ A couple more notes about the color class:
 - a must be between 0 and 1
 - by setting `disable_hsl=true` on initialization, you can prevent to hex <-> rgb conversions
 - by default it outputs it with a hashtag. If you don't want it to do this, set `hashtag=false` on initialization.
+- as shown in the example, you can just add values to it to create new colors that don't change the original color object
 
 All the math was taken from [here](https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/). 
 I basically just put it into lua in a nice way. Me actaully kinda learning how to make this nice api comes
