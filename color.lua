@@ -79,7 +79,6 @@ local function color(args)
 
 	end --otherwise it's just black and everything is correct already
 
-
 	-- Set up the metatable
 	local mt = getmetatable(obj) or {}
 
@@ -124,7 +123,6 @@ local function color(args)
 	mt.__newindex = function(self, key, value)
 		if self._props[key] ~= nil then
 
-
 			-- Set what values are currently accessible
 			if utils.contains(RGB, key) then obj._access = RGB
 			elseif utils.contains(HSL, key) and not obj.disable_hsl then obj._access = HSL
@@ -155,8 +153,8 @@ local function color(args)
 	local function operate(new, operator)
 		local newcolor = color {r=obj.r, g=obj.g, b=obj.b}
 		local key = new:match("%a+")
-		if operator == "+" then newcolor[key] = newcolor[key] + new:match("[%d\\.]+")
-		elseif operator == "-" then newcolor[key] = newcolor[key] - new:match("[%d\\.]+") end
+		if operator == "+" then newcolor[key] = newcolor[key] + new:match("-?[%d\\.]+")
+		elseif operator == "-" then newcolor[key] = newcolor[key] - new:match("-?[%d\\.]+") end
 		return newcolor
 	end
 
