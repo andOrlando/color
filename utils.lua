@@ -15,7 +15,7 @@ local function hex_to_rgba(hex)
 		tonumber("0x"..hex:sub(3,4)),
 		tonumber("0x"..hex:sub(5,6)),
 		--if alpha exists in hex, return it
-		#hex == 8 and tonumber("0x"..hex:sub(7,8)) or nil
+		#hex == 8 and tonumber("0x"..hex:sub(7,8)) / 255 or nil
 end
 
 local function rgba_to_hex(obj)
