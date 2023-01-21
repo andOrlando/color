@@ -65,7 +65,7 @@ local function color(args)
 	end
 
 	-- Initially set other values
-	if obj._props.r ~= 0 or obj._props.g ~= 0 or obj._props.b ~= 0 then
+	if obj._props.r ~= 0 or obj._props.g ~= 0 or obj._props.b ~= 0 or obj._props.a ~= 1 then
 		obj:_rgba_to_hex()
 		if not obj.disable_hsl then obj:_rgb_to_hsl() end
 
