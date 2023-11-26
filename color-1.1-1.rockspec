@@ -1,7 +1,7 @@
 package = "color"
 version = "1.1-1"
 source = {
-   url = "git+https://github.com/andOrlando/color.git"
+   url = "git+https://github.com/achengli/color.git"
 }
 description = {
    detailed = [[
@@ -17,6 +17,6 @@ There's a better description in the github's README
 build = {
    type = "builtin",
    modules = {
-      color = "color.lua"
+      color = "color"
    }
 }
