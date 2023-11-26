@@ -71,4 +71,5 @@ I just do what I think looks pleasent, which I suppose is fitting for a ricer.
 - [ ] Do better setting of default methods (`obj._props.r = args.r or 0` kinda thing)
 - [X] Make do good readme
 - [X] Have smarter input reading (as in, don't require a table with r, g and b, look at first three indices
+- [X] Solve the problem with global variable **COLOR_DIR** when calling *require*  
 - [ ] Allow for 0-1 rgb
