@@ -165,4 +165,6 @@ local function color(args)
 	return obj
 end
 
-return color
+return {
+  color = color
+}

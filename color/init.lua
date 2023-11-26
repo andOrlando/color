@@ -1,3 +1,0 @@
-return {
-  color = require'color'
-}
