@@ -17,6 +17,7 @@ There's a better description in the github's README
 build = {
    type = "builtin",
    modules = {
-      color = "color.lua"
+     ['color'] = 'color/color.lua',
+     ['utils'] = 'color/utils.lua'
    }
 }

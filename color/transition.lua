@@ -1,4 +1,4 @@
-local color = require(COLOR_DIR.."color")
+local color = require'color'.color
 
 --0 is rgb
 --1 is hsl
@@ -25,4 +25,6 @@ setmetatable(transition, {__call = function(self, col1, col2, method)
 	end end
 end})
 
-return transition
+return {
+  transition = transition
+}
