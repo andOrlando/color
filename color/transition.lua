@@ -1,4 +1,4 @@
-local color = require(COLOR_DIR.."color")
+local color = require'color'
 
 --0 is rgb
 --1 is hsl

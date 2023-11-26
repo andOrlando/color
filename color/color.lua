@@ -1,4 +1,4 @@
-local utils = require(COLOR_DIR.."utils")
+local utils = require'utils'
 
 --constants for clarity
 local ANY = {"r", "g", "b", "h", "s", "l", "hex", "a"}
